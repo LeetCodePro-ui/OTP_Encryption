@@ -1,16 +1,17 @@
 import secrets
 
 
-banner = r"""
-  ____   _____  _____     ______                   _____            _ 
- / __ \ |_   _||  __ \   |  ____|                 / ____|          | |
-| |  | |  | |  | |__) |  | |__   _ __   ___  _   | (___   _   _ ___| |
-| |  | |  | |  |  ___/   |  __| | '_ \ / __|| |   \___ \ | | | / __| |
-| |__| | _| |_ | |      _| |____| | | | (__ | |   ____) || |_| \__ \_|_
- \____/ |_____||_|     (_)______|_| |_|\___||_|  |_____/  \__, |___(_)
-                                                           __/ |      
-                                                          |___/       
-"""
+banner = r'''
+   ______  ___________  _______    __    _______  _____  ___    ______    _______   ___  ___  _______   
+   /    " \("     _   ")|   __ "\  /""\  /"     "|(\"   \|"  \  /" _  "\  /"      \ |"  \/"  ||   __ "\  
+  // ____  \)__/  \\__/ (. |__) :)//   \(: ______)|.\\   \    |(: ( \___)|:        | \   \  / (. |__) :) 
+ /  /    ) :)  \\_ /    |:  ____//'_/\_\\\/    |  |: \.   \\  | \/ \     |_____/   )  \\  \/  |:  ____/  
+(: (____/ //   |.  |    (|  /            // ___)_ |.  \    \. | //  \ _   //      /   /   /   (|  /      
+ \        /    \:  |   /|__/ \          (:      "||    \    \ |(:   _) \ |:  __   \  /   /   /|__/ \     
+  \"_____/      \__|  (_______)          \_______) \___|\____\) \_______)|__|  \___)|___/   (_______)    
+
+       
+'''
 print(banner)
 print("\n\n")
 while True:
@@ -26,13 +27,18 @@ if choice == str(1):
     txt = txt.lower()
 
     print("\n--- Running Encryption ---")
-    
+    #generating empty list and string for following loop
     key_list = []
     enc_txt = ""
     
+    
     for i in txt:
+    #secret number until 95 because of printable ASCII characters
         key = secrets.randbelow(95)
         key_list.append(key)
+        #1:turning character i into ASCII number
+        #2:Subtracting 32, adding key
+        #3:mod 95 to receive number in ASCII scale, adding 32 to not leave printable character scale
         enc_txt += chr((ord(i) - 32 +key) % 95 + 32)
     print(enc_txt)
     print(key_list)
