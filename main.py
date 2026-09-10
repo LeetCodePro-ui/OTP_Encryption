@@ -62,6 +62,11 @@ while True:
         elif choice == str(3):
             dec_txt = input("Enter your encrypted text here:\n\n")
             dec_key = input("Enter your key here:\n\n")
+            
+            if len(dec_txt) != len(dec_key):
+                print("ERROR\nKey length does not match the length of the encrypted text!")
+                continue
+
             enc = ""
             txt_key = zip(dec_txt,dec_key)
 
