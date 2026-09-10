@@ -69,10 +69,10 @@ while True:
                 if ask == "save":
                     now = datetime.now()
                     timestamp = now.strftime("%Y-%m-%d-%H-%M-%S")
-                    with open (f"encrypted_key_{timestamp}.txt","a") as f:
-                        f.write(f"\nYour key:\n{key_str}\nTimestamp: {timestamp}")
-                    with open (f"encrypted_text_{timestamp}.txt","a") as g:
-                        g.write(f"\nYour encrypted text:\n{enc_txt}\nTimestamp: {timestamp}")
+                    with open (f"encrypted_key_{timestamp}.txt","w", encoding = "utf-8") as f:
+                        f.write(key_str)
+                    with open (f"encrypted_text_{timestamp}.txt","w", encoding = "utf-8") as g:
+                        g.write(enc_txt)
                     print(f"[--Your encryption key && encrypted text have been saved as:\n{f.name}\n{g.name}--]")
                     break
     
@@ -86,10 +86,35 @@ while True:
                     print("[--\nERROR\nEnter a valid option--]")
                     continue
 
-        elif choice == str(3):
-            dec_txt = input("[--Enter your encrypted text here:--]\n\n").strip()
-            dec_key = input("[--Enter your key here:--]\n\n").strip()
+        elif choice == "3":
+            choi = input("\n[--For reading key && text from files: 'file'\nFor typing both manually: 'man'--]\n").strip().lower()
             
+            dec_txt = ""
+            dec_key = ""
+
+            if choi == "man":
+                dec_txt = input("[--Enter your encrypted text here:--]\n\n")
+                dec_key = input("[--Enter your key here:--]\n\n")
+                
+            elif choi == "file":
+                try:
+                    
+                    path_txt = input("[--Paste your encrypted_text file path here:--]\n").strip()
+                    with open(path_txt, "r", encoding="utf-8") as t:
+                        dec_txt = t.read()
+                    
+                    
+                    path_key = input("[--Paste your encryption_key here:--]\n").strip()
+                    with open(path_key, "r",encoding="utf-8") as z:
+                        dec_key = z.read()
+
+                except FileNotFoundError:
+                    print("[--ERROR\nInvalid option!--]")
+                    continue
+            else:
+                print("[--ERROR\nEnter a valid option!--]")
+                continue
+                    
             if len(dec_txt) != len(dec_key):
                 print("[--ERROR\nKey length does not match the length of the encrypted text!--]")
                 continue
@@ -100,7 +125,6 @@ while True:
             for k,l in txt_key:
                 key_int = ord(l) - 32
                 enc += decrypt(k,key_int)
-
 
 
             print(f"\n[--Decrypted text:{enc}--]\n")
