@@ -20,18 +20,19 @@ def encrypt(i,key):
      #2:Subtracting 32, adding key
      #3:mod 95 to receive number in ASCII scale, adding 32 to not leave printable character scale
     return chr((ord(i) - 32 +key) % 95 + 32)
-
+def decrypt(i,key):
+    return chr((ord(i) - 32 -key) % 95 +32)
 while True:
     try:
         while True:
-            choice = input("Please enter your choice:\n1:END Program\n2:Encryption\n")
+            choice = input("\nPlease enter your choice:\n1:END Program\n2:Encryption\n3:Decryption\n")
             if choice == str(1):
                 print("\n--- Program finished ---")
                 sys.exit()
-            elif choice == str(2):
+            elif choice == "2" or choice == "3":
                 break
             else:
-                print("ERROR\nEnter a valid option!")
+                print("ERROR\nEnter a valid option!\n")
                 continue
 
 
@@ -50,8 +51,34 @@ while True:
                 key = secrets.randbelow(95)
                 key_list.append(key)        
                 enc_txt += encrypt(i,key)
-            print(enc_txt)
-            print(key_list)
+            key_str = ""
+            for j in key_list:
+                key_str += chr(j + 32)
+
+            print(f"Encrypted text:\n{enc_txt}\n\n")
+            print(f"Encryption key:\n{key_str}\n\n")
+            print("\n--- Program finished ---\n")
+        
+        elif choice == str(3):
+            dec_txt = input("Enter your encrypted text here:\n\n")
+            dec_key = input("Enter your key here:\n\n")
+            enc = ""
+            txt_key = zip(dec_txt,dec_key)
+
+            for k,l in txt_key:
+                key_int = ord(l) - 32
+                enc += decrypt(k,key_int)
+
+
+
+            print(f"\nDecrypted text:{enc}\n")
+            print("\n--- Program finished ---\n")
+
+
+            
+
+
+
 
     except KeyboardInterrupt:
         print("\n--- KeyboardInterrupt ---")
