@@ -40,7 +40,7 @@ while True:
 
 
         if choice == "2":
-            txt = input("[--Enter your text for encryption here.--]\n").strip()
+            txt = input("[--Enter your text for encryption here.--]\n")
 
 
             print("\n--- Running Encryption ---")
@@ -99,17 +99,17 @@ while True:
             elif choi == "file":
                 try:
                     
-                    path_txt = input("[--Paste your encrypted_text file path here:--]\n").strip()
+                    path_txt = input("[--Paste your encrypted_text file path here:--]\n").strip().strip("\"'")
                     with open(path_txt, "r", encoding="utf-8") as t:
-                        dec_txt = t.read()
+                        dec_txt = t.read().removesuffix("\n").removesuffix("\r")
                     
                     
-                    path_key = input("[--Paste your encryption_key here:--]\n").strip()
+                    path_key = input("[--Paste your encryption_key here:--]\n").strip().strip("\"'")
                     with open(path_key, "r",encoding="utf-8") as z:
-                        dec_key = z.read()
+                        dec_key = z.read().removesuffix("\n").removesuffix("\r")
 
                 except FileNotFoundError:
-                    print("[--ERROR\nInvalid option!--]")
+                    print("[--ERROR\nFile not found!--]")
                     continue
             else:
                 print("[--ERROR\nEnter a valid option!--]")
@@ -129,6 +129,7 @@ while True:
 
             print(f"\n[--Decrypted text:{enc}--]\n")
             print("\n--- Program finished ---\n")
+
 
 
             
